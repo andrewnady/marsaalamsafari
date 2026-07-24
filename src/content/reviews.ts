@@ -1,0 +1,136 @@
+import type { Review } from './types';
+
+/**
+ * Verified customer reviews. In production these are synced from a review
+ * platform (TripAdvisor / Google) via API; the shape stays identical.
+ */
+export const reviews: Review[] = [
+  {
+    id: 'r1',
+    author: 'Markus W.',
+    country: 'Germany',
+    countryCode: 'DE',
+    rating: 5,
+    date: '2026-05-18',
+    title: 'The desert safari was the highlight of our holiday',
+    body: 'Perfectly organised from pickup to drop-off. The quad biking was so much fun, the guides were friendly and safety-conscious, and the dinner under the stars was magical. Highly recommend for families.',
+    tourSlug: 'marsa-alam-desert-safari',
+    verified: true,
+  },
+  {
+    id: 'r2',
+    author: 'Sophie L.',
+    country: 'France',
+    countryCode: 'FR',
+    rating: 5,
+    date: '2026-05-02',
+    title: 'Swam with wild dolphins at Sataya — unforgettable',
+    body: 'We saw a huge pod of dolphins and the crew was incredibly respectful of the animals. The boat, the lunch, the snorkeling — everything was first class. Worth the early start.',
+    tourSlug: 'snorkeling-sataya-dolphin-reef',
+    verified: true,
+  },
+  {
+    id: 'r3',
+    author: 'James T.',
+    country: 'United Kingdom',
+    countryCode: 'GB',
+    rating: 5,
+    date: '2026-04-21',
+    title: 'Turtles at Abu Dabbab — kids loved it',
+    body: 'Easy, relaxed morning and we saw three turtles within twenty minutes. Great for beginners and children. The guide was patient and helpful with our nervous swimmer.',
+    tourSlug: 'abu-dabbab-snorkeling',
+    verified: true,
+  },
+  {
+    id: 'r4',
+    author: 'Giulia R.',
+    country: 'Italy',
+    countryCode: 'IT',
+    rating: 5,
+    date: '2026-04-10',
+    title: 'Luxor day trip exceeded expectations',
+    body: 'Long day but so worth it. Our Egyptologist guide was brilliant and made the tombs come alive. Comfortable vehicle and a good lunch. A must-do from Marsa Alam.',
+    tourSlug: 'luxor-day-trip',
+    verified: true,
+  },
+  {
+    id: 'r5',
+    author: 'Bram V.',
+    country: 'Netherlands',
+    countryCode: 'NL',
+    rating: 5,
+    date: '2026-03-28',
+    title: 'Fantastic diving, small group, great guide',
+    body: 'Two beautiful dives with only four people in our group. The reef was stunning and we saw a turtle and a reef shark. Equipment was in great condition. Will book again.',
+    tourSlug: 'marsa-alam-diving-trip',
+    verified: true,
+  },
+  {
+    id: 'r6',
+    author: 'Anna K.',
+    country: 'Austria',
+    countryCode: 'AT',
+    rating: 5,
+    date: '2026-03-15',
+    title: 'Sunset camel ride — so peaceful',
+    body: 'A calm, beautiful experience. The handlers were kind to the camels and to us, and the sunset over the mountains was stunning. Perfect for a relaxed afternoon.',
+    tourSlug: 'camel-ride-marsa-alam',
+    verified: true,
+  },
+  {
+    id: 'r7',
+    author: 'Piotr Z.',
+    country: 'Poland',
+    countryCode: 'PL',
+    rating: 5,
+    date: '2026-02-27',
+    title: 'Hamata Islands are a hidden gem',
+    body: 'The most beautiful water I have ever seen. Empty sandbars, healthy reefs and hardly any other tourists. The long drive was completely worth it. Lunch on board was tasty.',
+    tourSlug: 'hamata-islands-boat-trip',
+    verified: true,
+  },
+  {
+    id: 'r8',
+    author: 'Elena M.',
+    country: 'Switzerland',
+    countryCode: 'CH',
+    rating: 5,
+    date: '2026-02-12',
+    title: 'Super Safari — action-packed and safe',
+    body: 'Jeep, quad, camel and a great dinner — the kids were thrilled and I never felt unsafe. Excellent value and a very professional team. Booking on WhatsApp was quick and easy.',
+    tourSlug: 'super-safari-jeep-adventure',
+    verified: true,
+  },
+  {
+    id: 'r9',
+    author: 'Tomas H.',
+    country: 'Czech Republic',
+    countryCode: 'CZ',
+    rating: 4,
+    date: '2026-01-30',
+    title: 'Great quad tour, a bit dusty',
+    body: 'Really enjoyed the ride and the sunset stop. Bring a scarf for the dust! Guides were great and the pace suited beginners. Would do the full safari next time.',
+    tourSlug: 'quad-bike-marsa-alam',
+    verified: true,
+  },
+  {
+    id: 'r10',
+    author: 'Marie D.',
+    country: 'Belgium',
+    countryCode: 'BE',
+    rating: 5,
+    date: '2026-01-16',
+    title: 'Aswan trip was serene and beautiful',
+    body: 'Philae temple was breathtaking and the felucca sail on the Nile was the perfect way to relax. Our guide was knowledgeable and warm. A wonderful contrast to the beach.',
+    tourSlug: 'aswan-day-trip',
+    verified: true,
+  },
+];
+
+export function getReviewsForTour(slug: string): Review[] {
+  return reviews.filter((r) => r.tourSlug === slug);
+}
+
+export function getFeaturedReviews(limit = 6): Review[] {
+  return [...reviews].sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
+}

@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-jost: 'Jost', ui-sans-serif, system-ui, sans-serif;
+    --font-manrope: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-charcoal antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-semibold tracking-tight text-charcoal;
+    text-wrap: balance;
+  }
+
+  /* Respect reduced-motion for all animation. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Visible, accessible focus states (WCAG 2.2). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ocean ring-offset-2;
+  }
+
+  ::selection {
+    @apply bg-ocean/15 text-charcoal;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+      transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2
+      disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-ocean text-white hover:bg-ocean-700 active:scale-[0.98];
+  }
+
+  .btn-accent {
+    @apply btn bg-sunset text-white hover:brightness-95 active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply btn border border-charcoal/15 bg-white text-charcoal hover:border-charcoal/40 hover:bg-beige-soft;
+  }
+
+  .btn-whatsapp {
+    @apply btn bg-[#25D366] text-white hover:brightness-95 active:scale-[0.98];
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-ocean;
+  }
+
+  .card {
+    @apply overflow-hidden rounded-2xl border border-charcoal/[0.07] bg-white shadow-card
+      transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover;
+  }
+
+  .prose-brand {
+    @apply prose prose-lg max-w-none prose-headings:font-display prose-headings:tracking-tight
+      prose-a:text-ocean prose-a:no-underline hover:prose-a:underline prose-strong:text-charcoal;
+  }
+}
+
+/* Skip link for keyboard users. */
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+    focus:rounded-lg focus:bg-ocean focus:px-4 focus:py-2 focus:text-white;
+}
