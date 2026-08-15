@@ -170,7 +170,15 @@ Targets WCAG 2.2 AA: semantic landmarks, skip link, visible `:focus-visible` rin
 
 ## Booking & contact flow
 
-The booking widget (`components/booking/BookingWidget.tsx`) calculates price live from guests, children and a private-tour option, then submits via **WhatsApp** (primary) or a prefilled **email inquiry** — no payment PII is handled client-side. The contact form posts to `/api/contact`, which validates, rate-limits and forwards via Resend (stubbed when unconfigured so dev/build never breaks).
+The booking widget (`components/booking/BookingWidget.tsx`) calculates price live from guests, children and a private-tour option, then submits via **WhatsApp** (primary) or a prefilled **email inquiry** — no payment PII is handled client-side. The contact form posts to `/api/contact`, which validates, rate-limits, **persists the lead to Postgres**, and forwards an email notification via Resend (stubbed when unconfigured so dev/build never breaks).
+
+## Database (Neon Postgres)
+
+Contact/booking inquiries and newsletter subscribers are persisted to **Neon serverless Postgres** via `lib/db.ts` (HTTP query driver — ideal for serverless, no pool to manage). Set `DATABASE_URL` (pooled connection string from the Neon dashboard) in your env; when it's absent the endpoints fall back to logging so local dev and CI builds never require a DB.
+
+- Tables (`inquiries`, `subscribers`) are created idempotently on first write via `ensureSchema()` — `CREATE TABLE IF NOT EXISTS`, so it never destroys data.
+- For a larger schema, migrate to `drizzle-kit` / `node-pg-migrate`; the query shapes in `lib/db.ts` map directly.
+- **Security:** `DATABASE_URL` is a secret — keep it in env vars only (Vercel + `.env.local`), never in the repo. Rotate the password in Neon if it is ever exposed.
 
 ---
 

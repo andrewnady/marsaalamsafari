@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { rateLimit, clientIp } from '@/lib/rate-limit';
 import { isEmail } from '@/lib/validation';
+import { saveSubscriber } from '@/lib/db';
 
 export const runtime = 'nodejs';
 
@@ -26,8 +27,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Please enter a valid email address' }, { status: 422 });
   }
 
-  // Persist to your ESP (Mailchimp/Brevo/Resend Audiences). Stubbed for build.
-  console.info('[newsletter] subscribe:', data.email);
+  const email = data.email as string;
+
+  try {
+    // Idempotent: re-subscribing the same email is a no-op, not an error.
+    await saveSubscriber(email, clientIp(req));
+  } catch (err) {
+    console.error('[newsletter] saveSubscriber failed:', err);
+    // Non-fatal: don't block the user if the store is briefly unavailable.
+  }
+  console.info('[newsletter] subscribe:', email);
 
   return NextResponse.json({ ok: true });
 }

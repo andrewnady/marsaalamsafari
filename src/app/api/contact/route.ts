@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { rateLimit, clientIp } from '@/lib/rate-limit';
 import { validateContact } from '@/lib/validation';
+import { saveInquiry, isDbConfigured } from '@/lib/db';
 
 export const runtime = 'nodejs';
 
@@ -34,13 +35,36 @@ export async function POST(req: Request) {
   }
 
   const { name, email, message, country, subject } = result.value;
+  const userAgent = req.headers.get('user-agent') ?? undefined;
 
+  // 1) Durable store first (best-effort — a DB hiccup must not lose the lead if
+  //    email still works, and vice-versa).
+  let persisted = false;
+  try {
+    const id = await saveInquiry({ name, email, message, country, subject, sourceIp: ip, userAgent });
+    persisted = id !== null;
+  } catch (err) {
+    console.error('[contact] saveInquiry failed:', err);
+  }
+
+  // 2) Email notification (also best-effort; stubbed when unconfigured).
+  let notified = false;
   try {
     await deliverInquiry({ name, email, message, country, subject });
-    return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: 'Could not send your message. Please try WhatsApp.' }, { status: 502 });
+    notified = true;
+  } catch (err) {
+    console.error('[contact] deliverInquiry failed:', err);
   }
+
+  // Succeed if the lead landed anywhere durable OR neither channel is configured
+  // (dev), in which case the request was logged.
+  if (persisted || notified || (!isDbConfigured() && !process.env.RESEND_API_KEY)) {
+    return NextResponse.json({ ok: true });
+  }
+  return NextResponse.json(
+    { error: 'Could not send your message. Please try WhatsApp.' },
+    { status: 502 },
+  );
 }
 
 async function deliverInquiry(payload: {
