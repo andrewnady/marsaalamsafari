@@ -18,8 +18,12 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Headings inherit their container's color so they read correctly on both
+     light pages (body is charcoal) and dark/photo heroes (container is white).
+     Individual headings can still opt into an explicit color. */
   h1, h2, h3, h4 {
-    @apply font-display font-semibold tracking-tight text-charcoal;
+    @apply font-display font-semibold tracking-tight;
+    color: inherit;
     text-wrap: balance;
   }
 
