@@ -75,7 +75,7 @@ async function deliverInquiry(payload: {
   subject?: string;
 }) {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_INBOX_EMAIL;
+  const to = process.env.CONTACT_INBOX_EMAIL || 'marsaalamexplorer@gmail.com';
 
   // No provider configured (e.g. local/dev): log and succeed so the UX works.
   if (!apiKey || !to) {
