@@ -34,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(t.updatedAt),
     changeFrequency: 'weekly',
     priority: 0.9,
-    images: [t.heroImage.src, ...t.gallery.map((g) => g.src)],
   }));
 
   const landingPagesUrls: MetadataRoute.Sitemap = landingPages.map((p) => ({
@@ -42,7 +41,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.8,
-    images: [p.heroImage.src],
   }));
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((c) => ({
@@ -57,7 +55,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: 'monthly',
     priority: 0.7,
-    images: [d.image.src],
   }));
 
   const blogPostPages: MetadataRoute.Sitemap = blogPosts.map((p) => ({
@@ -65,7 +62,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(p.updatedAt),
     changeFrequency: 'monthly',
     priority: 0.7,
-    images: [p.heroImage.src],
   }));
 
   const blogCategoryPages: MetadataRoute.Sitemap = blogCategories.map((c) => ({
