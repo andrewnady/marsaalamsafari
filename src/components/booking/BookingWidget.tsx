@@ -1,11 +1,12 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import type { Tour } from '@/content/types';
 import { Icon } from '@/components/ui/Icons';
 import { StarRating } from '@/components/ui/StarRating';
 import { formatPrice, cn } from '@/lib/utils';
-import { whatsappLink, siteConfig } from '@/config/site';
+import { whatsappLink } from '@/config/site';
 
 /**
  * Interactive booking panel: date, guests, hotel pickup, extras and live
@@ -41,9 +42,12 @@ export function BookingWidget({ tour }: { tour: Tour }) {
     return `Hi! I’d like to book:\n${parts.join('\n')}`;
   }, [tour.title, date, adults, children, hotel, privateTour, requests, total, tour.price.currency]);
 
-  const emailHref = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(
+  // Route to the on-site contact form (reliable everywhere, and captured in the
+  // DB) with the tour + booking details prefilled — instead of a mailto: link
+  // that silently fails when the visitor has no desktop mail client.
+  const contactHref = `/contact?subject=${encodeURIComponent(
     `Booking inquiry: ${tour.title}`,
-  )}&body=${encodeURIComponent(summary)}`;
+  )}&message=${encodeURIComponent(summary)}`;
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -135,9 +139,9 @@ export function BookingWidget({ tour }: { tour: Tour }) {
         >
           <Icon.Whatsapp width={18} height={18} /> Book on WhatsApp
         </a>
-        <a href={emailHref} className="btn-outline w-full">
+        <Link href={contactHref} className="btn-outline w-full">
           <Icon.Mail width={18} height={18} /> Email inquiry
-        </a>
+        </Link>
       </div>
 
       <ul className="mt-5 space-y-2 text-xs text-charcoal-muted">

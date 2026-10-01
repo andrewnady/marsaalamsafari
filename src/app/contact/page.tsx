@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Section } from '@/components/ui/Section';
+import { Suspense } from 'react';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { MapEmbed } from '@/components/ui/MapEmbed';
 import { Icon } from '@/components/ui/Icons';
@@ -90,7 +91,9 @@ export default function ContactPage() {
             <h2 className="text-2xl font-semibold">Send an inquiry</h2>
             <p className="mt-1 text-sm text-charcoal-muted">We reply within a few hours, usually much sooner.</p>
             <div className="mt-6">
-              <ContactForm />
+              <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-beige-soft" />}>
+                <ContactForm />
+              </Suspense>
             </div>
           </div>
         </div>

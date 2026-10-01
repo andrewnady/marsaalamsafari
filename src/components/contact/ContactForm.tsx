@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Icon } from '@/components/ui/Icons';
 
 type Status = 'idle' | 'loading' | 'ok' | 'error';
@@ -12,6 +13,10 @@ type Status = 'idle' | 'loading' | 'ok' | 'error';
 export function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
+  // Prefill from the booking widget's "Email inquiry" link (?subject=&message=).
+  const params = useSearchParams();
+  const prefillSubject = params.get('subject') ?? '';
+  const prefillMessage = params.get('message') ?? '';
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -62,7 +67,7 @@ export function ContactForm() {
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Country" name="country" autoComplete="country-name" />
-        <Field label="Tour / topic" name="subject" placeholder="e.g. Desert safari" />
+        <Field label="Tour / topic" name="subject" placeholder="e.g. Desert safari" defaultValue={prefillSubject} />
       </div>
       <div>
         <label htmlFor="cf-message" className="mb-1.5 block text-sm font-semibold text-charcoal">
@@ -73,6 +78,7 @@ export function ContactForm() {
           name="message"
           required
           rows={5}
+          defaultValue={prefillMessage}
           placeholder="Tell us your dates, group size, hotel and what you’d love to do…"
           className="w-full rounded-xl border border-charcoal/12 px-4 py-3 text-sm focus-visible:ring-2 focus-visible:ring-ocean"
         />
@@ -100,6 +106,7 @@ function Field({
   required,
   placeholder,
   autoComplete,
+  defaultValue,
 }: {
   label: string;
   name: string;
@@ -107,6 +114,7 @@ function Field({
   required?: boolean;
   placeholder?: string;
   autoComplete?: string;
+  defaultValue?: string;
 }) {
   const id = `cf-${name}`;
   return (
@@ -121,6 +129,7 @@ function Field({
         required={required}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        defaultValue={defaultValue}
         className="w-full rounded-xl border border-charcoal/12 px-4 py-3 text-sm focus-visible:ring-2 focus-visible:ring-ocean"
       />
     </div>
