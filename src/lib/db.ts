@@ -90,3 +90,43 @@ export async function saveSubscriber(email: string, sourceIp?: string): Promise<
   `;
   return true;
 }
+
+export interface InquiryRow {
+  id: number;
+  name: string;
+  email: string;
+  country: string | null;
+  subject: string | null;
+  message: string;
+  created_at: string;
+}
+
+export interface SubscriberRow {
+  id: number;
+  email: string;
+  created_at: string;
+}
+
+/** List the most recent inquiries (newest first). Empty array if no DB. */
+export async function listInquiries(limit = 200): Promise<InquiryRow[]> {
+  const sql = getDb();
+  if (!sql) return [];
+  await ensureSchema();
+  const rows = await sql`
+    SELECT id, name, email, country, subject, message, created_at
+    FROM inquiries ORDER BY created_at DESC LIMIT ${limit}
+  `;
+  return rows as InquiryRow[];
+}
+
+/** List the most recent subscribers (newest first). Empty array if no DB. */
+export async function listSubscribers(limit = 200): Promise<SubscriberRow[]> {
+  const sql = getDb();
+  if (!sql) return [];
+  await ensureSchema();
+  const rows = await sql`
+    SELECT id, email, created_at
+    FROM subscribers ORDER BY created_at DESC LIMIT ${limit}
+  `;
+  return rows as SubscriberRow[];
+}
