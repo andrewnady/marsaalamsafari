@@ -19,7 +19,9 @@ export const siteConfig = {
 
   contact: {
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201000000000',
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'marsaalamexplorer@gmail.com',
+    // Hardcoded so the official address always shows, regardless of any
+    // NEXT_PUBLIC_CONTACT_EMAIL value set in the hosting env.
+    email: 'marsaalamexplorer@gmail.com',
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '+201000000000',
   },
 
