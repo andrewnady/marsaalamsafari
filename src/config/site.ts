@@ -61,6 +61,8 @@ export const siteConfig = {
   analytics: {
     gaId: process.env.NEXT_PUBLIC_GA_ID || '',
     plausibleDomain: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || '',
+    // Microsoft Clarity project ID (public; safe to commit).
+    clarityId: process.env.NEXT_PUBLIC_CLARITY_ID || 'yqzm6we09l',
   },
 
   verification: {
