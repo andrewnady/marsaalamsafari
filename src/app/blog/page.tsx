@@ -5,7 +5,7 @@ import { Section } from '@/components/ui/Section';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getAllPostsSorted } from '@/content/blog-posts';
-import { blogCategories } from '@/content/blog-categories';
+import { getActiveBlogCategories } from '@/content/blog-categories';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { breadcrumbSchema, itemListSchema, webPageSchema } from '@/lib/seo/jsonld';
 import { absoluteUrl } from '@/config/site';
@@ -44,7 +44,7 @@ export default function BlogPage() {
             Egypt’s Red Sea coast.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {blogCategories.map((c) => (
+            {getActiveBlogCategories().map((c) => (
               <Link
                 key={c.slug}
                 href={`/blog/category/${c.slug}`}

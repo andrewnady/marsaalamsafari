@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { tours, getRelatedTours, tourBySlug } from './tours';
-import { categories, categoryBySlug } from './categories';
+import { categories, categoryBySlug, getActiveCategories } from './categories';
+import { blogCategories, getActiveBlogCategories } from './blog-categories';
 import { destinations } from './destinations';
 import { blogPosts } from './blog-posts';
 import { landingPages } from './landing-pages';
@@ -24,12 +25,11 @@ describe('tours', () => {
     }
   });
 
-  it('have SEO metadata within recommended lengths', () => {
+  it('have SEO titles and descriptions that fit in Google results', () => {
     for (const t of tours) {
-      expect(t.seoTitle.length).toBeGreaterThan(0);
-      expect(t.seoTitle.length).toBeLessThanOrEqual(65);
-      expect(t.metaDescription.length).toBeGreaterThanOrEqual(80);
-      expect(t.metaDescription.length).toBeLessThanOrEqual(165);
+      expect(t.seoTitle.length, t.slug).toBeLessThanOrEqual(60);
+      expect(t.metaDescription.length, t.slug).toBeGreaterThanOrEqual(70);
+      expect(t.metaDescription.length, t.slug).toBeLessThanOrEqual(160);
     }
   });
 
@@ -115,6 +115,45 @@ describe('reviews', () => {
       if (r.tourSlug) expect(tourBySlug.has(r.tourSlug)).toBe(true);
       expect(r.rating).toBeGreaterThanOrEqual(1);
       expect(r.rating).toBeLessThanOrEqual(5);
+    }
+  });
+});
+
+describe('SEO text lengths (titles <= 60, descriptions 70-160)', () => {
+  const title = (s: string, id: string) => expect(s.length, id).toBeLessThanOrEqual(60);
+  const desc = (s: string, id: string) => {
+    expect(s.length, id).toBeGreaterThanOrEqual(70);
+    expect(s.length, id).toBeLessThanOrEqual(160);
+  };
+
+  it('landing pages', () => {
+    for (const p of landingPages) {
+      title(p.seoTitle, p.slug);
+      desc(p.metaDescription, p.slug);
+    }
+  });
+
+  it('blog posts', () => {
+    for (const p of blogPosts) {
+      title(p.seoTitle, p.slug);
+      desc(p.metaDescription, p.slug);
+    }
+  });
+
+  it('category, destination and blog category pages', () => {
+    for (const c of categories) desc(c.description, c.slug);
+    for (const d of destinations) desc(d.shortDescription, d.slug);
+    for (const c of blogCategories) desc(c.description, c.slug);
+  });
+});
+
+describe('thin content', () => {
+  it('only categories with content get pages', () => {
+    for (const c of getActiveCategories()) {
+      expect(tours.some((t) => t.category === c.slug), c.slug).toBe(true);
+    }
+    for (const c of getActiveBlogCategories()) {
+      expect(blogPosts.some((p) => p.category === c.slug), c.slug).toBe(true);
     }
   });
 });

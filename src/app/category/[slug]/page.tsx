@@ -6,7 +6,7 @@ import { Section } from '@/components/ui/Section';
 import { TourCard } from '@/components/tours/TourCard';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { categories, getCategory } from '@/content/categories';
+import { getActiveCategories, getCategory } from '@/content/categories';
 import { getToursByCategory } from '@/content/tours';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { breadcrumbSchema, itemListSchema, webPageSchema } from '@/lib/seo/jsonld';
@@ -17,7 +17,7 @@ interface Params {
 }
 
 export function generateStaticParams() {
-  return categories.map((c) => ({ slug: c.slug }));
+  return getActiveCategories().map((c) => ({ slug: c.slug }));
 }
 
 export const dynamicParams = false;
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: category.title,
     description: category.description,
     path: `/category/${category.slug}`,
-    images: [{ url: category.image.src, alt: category.image.alt }],
+    images: [{ url: category.image.src, alt: category.image.alt, width: category.image.width, height: category.image.height }],
   });
 }
 

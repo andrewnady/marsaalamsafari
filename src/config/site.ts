@@ -27,11 +27,11 @@ export const siteConfig = {
     phone: '+201559165152',
   },
 
+  // Only verified details. Add the real street + postcode here once confirmed —
+  // Google penalises inaccurate business addresses in structured data.
   address: {
-    street: 'Marina Promenade, Port Ghalib',
     locality: 'Marsa Alam',
     region: 'Red Sea Governorate',
-    postalCode: '84721',
     country: 'EG',
     countryName: 'Egypt',
   },
@@ -50,11 +50,12 @@ export const siteConfig = {
     tourCount: 40,
   },
 
+  // Real profile URLs only (used as schema.org sameAs). Empty = omitted.
   social: {
-    facebook: 'https://www.facebook.com/marsaalamsafari',
-    instagram: 'https://www.instagram.com/marsaalamsafari',
-    tripadvisor: 'https://www.tripadvisor.com/marsaalamsafari',
-    youtube: 'https://www.youtube.com/@marsaalamsafari',
+    facebook: '',
+    instagram: '',
+    tripadvisor: '',
+    youtube: '',
   },
 
   // Sibling brand — used for cross-linking authority (rel="me").

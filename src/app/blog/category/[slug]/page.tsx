@@ -4,7 +4,7 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { Section } from '@/components/ui/Section';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { blogCategories, getBlogCategory } from '@/content/blog-categories';
+import { getActiveBlogCategories, getBlogCategory } from '@/content/blog-categories';
 import { getPostsByCategory } from '@/content/blog-posts';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { breadcrumbSchema, itemListSchema, webPageSchema } from '@/lib/seo/jsonld';
@@ -15,7 +15,7 @@ interface Params {
 }
 
 export function generateStaticParams() {
-  return blogCategories.map((c) => ({ slug: c.slug }));
+  return getActiveBlogCategories().map((c) => ({ slug: c.slug }));
 }
 
 export const dynamicParams = false;

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: `${destination.title} — Tours & Guide`,
     description: destination.shortDescription,
     path: `/destinations/${destination.slug}`,
-    images: [{ url: destination.image.src, alt: destination.image.alt }],
+    images: [{ url: destination.image.src, alt: destination.image.alt, width: destination.image.width, height: destination.image.height }],
   });
 }
 

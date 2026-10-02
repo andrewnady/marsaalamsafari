@@ -15,7 +15,7 @@ import { CtaBanner } from '@/components/ui/CtaBanner';
 import { Icon } from '@/components/ui/Icons';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { tours } from '@/content/tours';
-import { categories } from '@/content/categories';
+import { getActiveCategories } from '@/content/categories';
 import { destinations } from '@/content/destinations';
 import { getFeaturedReviews } from '@/content/reviews';
 import { getFeaturedPosts } from '@/content/blog-posts';
@@ -26,7 +26,7 @@ import type { FAQ } from '@/content/types';
 export const metadata: Metadata = buildMetadata({
   title: 'Marsa Alam Safari | Premium Desert, Snorkeling & Day Tours',
   description:
-    'Book premium Marsa Alam tours: desert safaris, dolphin & turtle snorkeling, diving and day trips to Luxor. Licensed local guides, free hotel pickup, best-price guarantee.',
+    'Book premium Marsa Alam tours: desert safaris, dolphin & turtle snorkeling, diving and Luxor day trips. Licensed local guides, free hotel pickup, best prices.',
   path: '/',
 });
 
@@ -103,7 +103,7 @@ export default function HomePage() {
           align="center"
         />
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((c) => (
+          {getActiveCategories().map((c) => (
             <CategoryCard key={c.slug} category={c} />
           ))}
         </div>

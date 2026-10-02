@@ -8,7 +8,7 @@ import { Icon } from '@/components/ui/Icons';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { siteConfig, whatsappLink } from '@/config/site';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { breadcrumbSchema, localBusinessSchema, webPageSchema } from '@/lib/seo/jsonld';
+import { breadcrumbSchema, webPageSchema } from '@/lib/seo/jsonld';
 import { absoluteUrl } from '@/config/site';
 
 export const metadata: Metadata = buildMetadata({
@@ -36,7 +36,6 @@ export default function ContactPage() {
       <JsonLd
         schema={[
           breadcrumbSchema(crumbs, url),
-          localBusinessSchema(),
           webPageSchema({ path: '/contact', title: 'Contact Marsa Alam Safari', description: metadata.description as string }),
         ]}
       />
@@ -79,10 +78,10 @@ export default function ContactPage() {
                 <Icon.Pin width={18} height={18} className="text-ocean" /> Our base
               </h2>
               <p className="mt-1 text-sm text-charcoal-muted">
-                {siteConfig.address.street}, {siteConfig.address.locality}, {siteConfig.address.countryName}
+                {siteConfig.address.locality}, Red Sea, {siteConfig.address.countryName}
               </p>
               <div className="mt-4">
-                <MapEmbed query="Port Ghalib, Marsa Alam, Egypt" title="Marsa Alam Safari location" />
+                <MapEmbed query="Marsa Alam, Egypt" title="Marsa Alam Safari location" />
               </div>
             </div>
           </div>

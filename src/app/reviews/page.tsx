@@ -24,23 +24,12 @@ export default function ReviewsPage() {
     { name: 'Reviews', path: '/reviews' },
   ];
 
-  // Aggregate rating schema for the review collection page.
-  const aggregate = {
-    '@context': 'https://schema.org',
-    '@type': 'AggregateRating',
-    itemReviewed: { '@type': 'TravelAgency', name: siteConfig.legalName },
-    ratingValue: siteConfig.trust.ratingValue,
-    reviewCount: siteConfig.trust.reviewCount,
-    bestRating: 5,
-    worstRating: 1,
-  };
 
   return (
     <>
       <JsonLd
         schema={[
           breadcrumbSchema(crumbs, url),
-          aggregate,
           webPageSchema({ path: '/reviews', title: 'Reviews', description: metadata.description as string }),
         ]}
       />

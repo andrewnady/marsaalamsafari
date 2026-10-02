@@ -1,5 +1,6 @@
 import type { Tour } from './types';
 import { img } from './images';
+import { CURRENT_YEAR } from './constants';
 
 /**
  * Seed tour catalogue. Content is original and rewritten from competitor
@@ -16,7 +17,7 @@ export const tours: Tour[] = [
   {
     slug: 'marsa-alam-desert-safari',
     title: 'Marsa Alam Desert Safari with Quad, Camel & Bedouin Dinner',
-    seoTitle: 'Marsa Alam Desert Safari 2026 | Quad, Camel & Bedouin Dinner',
+    seoTitle: `Marsa Alam Desert Safari ${CURRENT_YEAR} | Quad, Camel & Bedouin Dinner`,
     metaDescription:
       'The ultimate Marsa Alam desert safari: quad biking, a camel ride, a Bedouin village and a sunset dinner under the stars. Licensed guides & free hotel pickup.',
     summary:
@@ -97,7 +98,7 @@ export const tours: Tour[] = [
   {
     slug: 'quad-bike-marsa-alam',
     title: 'Quad Bike Marsa Alam: Sunset Desert Adventure',
-    seoTitle: 'Quad Bike Marsa Alam | Sunset Desert Adventure & Hotel Pickup',
+    seoTitle: 'Quad Bike Marsa Alam | Sunset Desert Ride with Hotel Pickup',
     metaDescription:
       'Ride a quad bike across the Marsa Alam desert on a guided sunset adventure. Beginner-friendly, licensed guides, safety gear and free hotel pickup included.',
     summary: 'A focused, adrenaline-friendly quad biking trip across open desert, timed for a spectacular Red Sea sunset.',
@@ -166,7 +167,7 @@ export const tours: Tour[] = [
   {
     slug: 'camel-ride-marsa-alam',
     title: 'Camel Ride Marsa Alam: Sunset Desert Experience',
-    seoTitle: 'Camel Ride Marsa Alam | Sunset Desert Experience & Bedouin Tea',
+    seoTitle: 'Camel Ride Marsa Alam | Sunset Desert Trek & Bedouin Tea',
     metaDescription:
       'A gentle sunset camel ride through the Marsa Alam desert with Bedouin guides, tea and Red Sea Hills views. Relaxed, family-friendly, hotel pickup included.',
     summary: 'A relaxed, romantic camel trek along the dune ridges at sunset, with Bedouin tea and mountain views.',
@@ -234,7 +235,7 @@ export const tours: Tour[] = [
   {
     slug: 'super-safari-jeep-adventure',
     title: 'Super Safari: 4x4 Jeep Adventure & Bedouin Dinner',
-    seoTitle: 'Marsa Alam Super Safari | 4x4 Jeep Adventure & Bedouin Dinner',
+    seoTitle: 'Marsa Alam Super Safari | 4x4 Jeep, Quad & Bedouin Dinner',
     metaDescription:
       'A full desert day from Marsa Alam: 4x4 jeep off-roading, a camel ride, quad bike and dinner under the stars. Small groups, licensed guides, hotel pickup.',
     summary: 'The grand desert combo — 4x4 off-roading, quad, camel, Bedouin culture and a starlit dinner in one epic evening.',
@@ -305,7 +306,7 @@ export const tours: Tour[] = [
   {
     slug: 'snorkeling-sataya-dolphin-reef',
     title: 'Sataya Dolphin Reef Snorkeling Trip (Dolphin House)',
-    seoTitle: 'Sataya Dolphin Reef Snorkeling Marsa Alam | Swim with Dolphins',
+    seoTitle: 'Swim with Dolphins at Sataya Reef | Marsa Alam Snorkeling',
     metaDescription:
       'Snorkel with wild spinner dolphins at Sataya Reef (Dolphin House) from Marsa Alam. Full-day boat trip, pristine coral, lunch and hotel pickup included.',
     summary: 'A full-day boat trip to Sataya Reef to snorkel pristine coral and share the water with wild spinner dolphins.',
@@ -379,7 +380,7 @@ export const tours: Tour[] = [
   {
     slug: 'abu-dabbab-snorkeling',
     title: 'Abu Dabbab Snorkeling: Swim with Sea Turtles',
-    seoTitle: 'Abu Dabbab Snorkeling Marsa Alam | Swim with Sea Turtles & Dugong',
+    seoTitle: 'Abu Dabbab Snorkeling | Swim with Sea Turtles in Marsa Alam',
     metaDescription:
       'Snorkel with green sea turtles at Abu Dabbab Bay near Marsa Alam. Calm, shallow water ideal for beginners and families. Easy beach entry, hotel pickup included.',
     summary: 'A relaxed half-day at Abu Dabbab Bay to snorkel with green sea turtles in calm, shallow water — perfect for beginners.',
@@ -450,7 +451,7 @@ export const tours: Tour[] = [
     title: 'Hamata Islands Boat Trip (Qulaan Mangroves)',
     seoTitle: 'Hamata Islands Boat Trip | Qulaan Mangroves, Marsa Alam',
     metaDescription:
-      'Cruise the protected Hamata (Qulaan) Islands from Marsa Alam — mangrove lagoons, empty sandbars and pristine coral. Full-day boat trip with lunch and hotel pickup.',
+      'Cruise the protected Hamata (Qulaan) Islands from Marsa Alam: mangrove lagoons, empty sandbars and pristine coral. Full-day boat trip with lunch and pickup.',
     summary: 'A full-day cruise through the protected Hamata archipelago — mangrove lagoons, white sandbars and untouched reefs.',
     overview: [
       'Far south of the crowds, the Hamata (Qulaan) Islands are the Red Sea at its most pristine. This full-day boat trip drifts between mangrove-fringed sandbars and coral gardens inside a protected marine park, with water so clear and shallow it glows turquoise from the boat.',
@@ -517,7 +518,7 @@ export const tours: Tour[] = [
   {
     slug: 'marsa-alam-diving-trip',
     title: 'Marsa Alam Diving Trip: Guided Reef & Elphinstone',
-    seoTitle: 'Marsa Alam Diving Trip | Guided Reef Dives & Elphinstone | PADI',
+    seoTitle: 'Marsa Alam Diving Trip | 2 Guided Reef Dives with PADI Pros',
     metaDescription:
       'Dive Marsa Alam’s world-class reefs with PADI guides. Two guided boat dives, small groups, full equipment and hotel pickup. Try-dives for beginners available.',
     summary: 'Two guided boat dives on Marsa Alam’s spectacular reefs, with PADI pros, small groups and full equipment.',
@@ -587,7 +588,7 @@ export const tours: Tour[] = [
   {
     slug: 'luxor-day-trip',
     title: 'Luxor Day Trip from Marsa Alam: Valley of the Kings',
-    seoTitle: 'Luxor Day Trip from Marsa Alam | Valley of the Kings & Karnak',
+    seoTitle: 'Luxor Day Trip from Marsa Alam | Valley of Kings & Karnak',
     metaDescription:
       'Visit Luxor from Marsa Alam on a guided day trip: Valley of the Kings, Karnak Temple and the Colossi of Memnon. Egyptologist guide, lunch and hotel pickup.',
     summary: 'A full-day journey to Luxor — the Valley of the Kings, Karnak and Hatshepsut — with an expert Egyptologist guide.',
@@ -660,7 +661,7 @@ export const tours: Tour[] = [
     title: 'Aswan Day Trip from Marsa Alam: Philae & High Dam',
     seoTitle: 'Aswan Day Trip from Marsa Alam | Philae Temple & High Dam',
     metaDescription:
-      'Discover Aswan from Marsa Alam on a guided full-day trip: Philae Temple, the High Dam and a Nile felucca sail. Egyptologist guide, lunch and hotel pickup included.',
+      'Discover Aswan from Marsa Alam on a guided day trip: Philae Temple, the High Dam and a Nile felucca sail. Egyptologist guide, lunch and hotel pickup.',
     summary: 'A full-day trip to Aswan — Philae Temple, the High Dam and a felucca sail on the Nile — with an Egyptologist guide.',
     overview: [
       'Aswan is Egypt at its most serene: the Nile widening between granite islands, feluccas leaning into the breeze, and the exquisite temple of Philae rising from the water. This full-day trip from Marsa Alam brings it all within reach, with a private Egyptologist guide.',

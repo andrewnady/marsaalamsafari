@@ -11,7 +11,7 @@ export const blogPosts: BlogPost[] = [
     title: 'The 12 Best Things to Do in Marsa Alam (2026 Guide)',
     seoTitle: '12 Best Things to Do in Marsa Alam in 2026 | Local Guide',
     metaDescription:
-      'A local’s guide to the best things to do in Marsa Alam: desert safaris, snorkeling with dolphins and turtles, diving, day trips to Luxor and more. Updated for 2026.',
+      'A local’s guide to the best things to do in Marsa Alam: desert safaris, snorkeling with dolphins and turtles, diving and day trips to Luxor. Updated for 2026.',
     excerpt:
       'From swimming with wild dolphins at Sataya to quad biking the Eastern Desert, here are the twelve experiences that make Marsa Alam special — chosen by local guides.',
     category: 'things-to-do',
@@ -49,7 +49,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'best-time-to-visit-marsa-alam',
     title: 'The Best Time to Visit Marsa Alam: A Month-by-Month Guide',
-    seoTitle: 'Best Time to Visit Marsa Alam | Month-by-Month Weather Guide 2026',
+    seoTitle: 'Best Time to Visit Marsa Alam: Month-by-Month Weather Guide',
     metaDescription:
       'When is the best time to visit Marsa Alam? A month-by-month guide to weather, sea temperature, diving conditions and crowds on Egypt’s Red Sea coast.',
     excerpt:
@@ -84,7 +84,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'what-to-pack-for-marsa-alam',
     title: 'What to Pack for Marsa Alam: The Complete Checklist',
-    seoTitle: 'What to Pack for Marsa Alam | Complete Packing Checklist 2026',
+    seoTitle: 'What to Pack for Marsa Alam | Complete Packing Checklist',
     metaDescription:
       'A complete Marsa Alam packing list: what to wear for the desert and sea, reef-safe sunscreen, snorkeling gear, day-trip essentials and what to leave at home.',
     excerpt:
@@ -152,9 +152,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'snorkeling-with-dolphins-sataya-guide',
     title: 'Snorkeling with Dolphins at Sataya: A Responsible Guide',
-    seoTitle: 'Snorkeling with Dolphins at Sataya Reef | Responsible Guide 2026',
+    seoTitle: 'Snorkeling with Dolphins at Sataya Reef | Responsible Guide',
     metaDescription:
-      'Everything you need to know about snorkeling with wild dolphins at Sataya Reef (Dolphin House) near Marsa Alam — how it works, what to expect and how to do it responsibly.',
+      'How snorkeling with wild dolphins at Sataya Reef (Dolphin House) near Marsa Alam works, what to expect on the day, and how to do it responsibly.',
     excerpt:
       'Swimming near wild dolphins is a bucket-list experience — but only if it’s done right. Here’s how Sataya works, and how to enjoy it without disturbing the pod.',
     category: 'snorkeling',
@@ -185,7 +185,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'how-to-get-to-marsa-alam',
     title: 'How to Get to Marsa Alam: Flights, Airports & Transfers',
-    seoTitle: 'How to Get to Marsa Alam | Flights, Airport & Transfers Guide',
+    seoTitle: 'How to Get to Marsa Alam | Flights, Airports & Transfers',
     metaDescription:
       'How to get to Marsa Alam: direct flights to Marsa Alam Airport (RMF), flying via Hurghada, transfer times, and getting around once you arrive.',
     excerpt:

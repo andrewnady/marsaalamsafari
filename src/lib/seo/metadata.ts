@@ -4,7 +4,7 @@ import { siteConfig, absoluteUrl } from '@/config/site';
 interface BuildMetadataInput {
   title: string;
   description: string;
-  /** Path only, e.g. "/tours/quad-bike-marsa-alam". */
+  /** Path only, e.g. "/quad-bike-marsa-alam". */
   path: string;
   images?: { url: string; alt: string; width?: number; height?: number }[];
   type?: 'website' | 'article';
@@ -15,19 +15,34 @@ interface BuildMetadataInput {
   noindex?: boolean;
 }
 
+/** Google truncates titles at roughly 60 characters in search results. */
+const MAX_TITLE = 60;
+
 const DEFAULT_OG = {
-  // Branded default share image. Swap for a locally-hosted /og/default.jpg in
-  // production once the asset is generated.
-  url: 'https://images.unsplash.com/photo-1516815231560-8f41ec531527?auto=format&fit=crop&w=1200&h=630&q=70',
+  url: absoluteUrl('/opengraph-image'),
   alt: `${siteConfig.name} — ${siteConfig.tagline}`,
   width: 1200,
   height: 630,
 };
 
 /**
- * Single source of truth for page metadata. Produces title, description,
- * canonical, robots, Open Graph and Twitter card data in one call, plus
- * hreflang alternates for the four supported locales.
+ * Final <title>: append the brand only when it isn't already present and the
+ * result still fits in a search result; otherwise keep the page's own title.
+ * Returned as `absolute` so the layout's "%s | brand" template never stacks a
+ * second brand onto it.
+ */
+export function pageTitle(title: string): string {
+  if (title.includes(siteConfig.name)) return title;
+  const branded = `${title} | ${siteConfig.name}`;
+  return branded.length <= MAX_TITLE ? branded : title;
+}
+
+/**
+ * Single source of truth for page metadata: title, description, canonical,
+ * robots, Open Graph and Twitter cards.
+ *
+ * hreflang is intentionally NOT emitted: alternates must point to real,
+ * translated pages. Add `alternates.languages` here once /de, /fr, /it exist.
  */
 export function buildMetadata({
   title,
@@ -42,31 +57,22 @@ export function buildMetadata({
   noindex,
 }: BuildMetadataInput): Metadata {
   const canonical = absoluteUrl(path);
-  const ogImages =
-    images?.map((i) => ({
-      url: i.url,
-      alt: i.alt,
-      width: i.width ?? 1200,
-      height: i.height ?? 630,
-    })) ?? [DEFAULT_OG];
+  const fullTitle = pageTitle(title);
+  // Only declare dimensions we actually know — never claim a size we don't have.
+  const ogImages = images?.map((i) => ({
+    url: i.url,
+    alt: i.alt,
+    ...(i.width && i.height ? { width: i.width, height: i.height } : {}),
+  })) ?? [DEFAULT_OG];
 
   return {
-    title,
+    title: { absolute: fullTitle },
     description,
     keywords,
     authors: authors?.map((name) => ({ name })),
-    alternates: {
-      canonical,
-      languages: {
-        'en': canonical,
-        'de': absoluteUrl(`/de${path === '/' ? '' : path}`),
-        'fr': absoluteUrl(`/fr${path === '/' ? '' : path}`),
-        'it': absoluteUrl(`/it${path === '/' ? '' : path}`),
-        'x-default': canonical,
-      },
-    },
+    alternates: { canonical },
     robots: noindex
-      ? { index: false, follow: false }
+      ? { index: false, follow: true }
       : {
           index: true,
           follow: true,
@@ -81,27 +87,18 @@ export function buildMetadata({
     openGraph: {
       type,
       siteName: siteConfig.name,
-      title,
+      title: fullTitle,
       description,
       url: canonical,
       locale: 'en_US',
       images: ogImages,
-      ...(type === 'article' && {
-        publishedTime,
-        modifiedTime,
-        authors,
-      }),
+      ...(type === 'article' && { publishedTime, modifiedTime, authors }),
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: fullTitle,
       description,
       images: ogImages.map((i) => i.url),
     },
   };
-}
-
-/** Compose a page title with the brand suffix, avoiding duplication. */
-export function pageTitle(title: string): string {
-  return title.includes(siteConfig.name) ? title : `${title} | ${siteConfig.name}`;
 }

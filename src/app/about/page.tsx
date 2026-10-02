@@ -8,7 +8,7 @@ import { CtaBanner } from '@/components/ui/CtaBanner';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { authors } from '@/content/authors';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { breadcrumbSchema, localBusinessSchema, webPageSchema } from '@/lib/seo/jsonld';
+import { breadcrumbSchema, webPageSchema } from '@/lib/seo/jsonld';
 import { absoluteUrl, siteConfig } from '@/config/site';
 
 export const metadata: Metadata = buildMetadata({
@@ -30,7 +30,6 @@ export default function AboutPage() {
       <JsonLd
         schema={[
           breadcrumbSchema(crumbs, url),
-          localBusinessSchema(),
           webPageSchema({ path: '/about', title: 'About Marsa Alam Safari', description: metadata.description as string }),
         ]}
       />

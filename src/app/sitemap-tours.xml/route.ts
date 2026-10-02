@@ -1,7 +1,7 @@
 import { absoluteUrl } from '@/config/site';
 import { tours } from '@/content/tours';
 import { landingPages } from '@/content/landing-pages';
-import { categories } from '@/content/categories';
+import { getActiveCategories } from '@/content/categories';
 import { destinations } from '@/content/destinations';
 import { urlsetXml, xmlResponse, type UrlEntry } from '@/lib/seo/sitemap-xml';
 
@@ -23,7 +23,7 @@ export function GET() {
       priority: 0.8,
       images: [{ loc: p.heroImage.src, title: p.heroImage.title, caption: p.heroImage.alt }],
     })),
-    ...categories.map((c) => ({ loc: absoluteUrl(`/category/${c.slug}`), changefreq: 'weekly', priority: 0.7 })),
+    ...getActiveCategories().map((c) => ({ loc: absoluteUrl(`/category/${c.slug}`), changefreq: 'weekly', priority: 0.7 })),
     ...destinations.map((d) => ({
       loc: absoluteUrl(`/destinations/${d.slug}`),
       changefreq: 'monthly',

@@ -56,7 +56,8 @@ export const metadata: Metadata = {
   ...(siteConfig.verification.google && {
     verification: { google: siteConfig.verification.google },
   }),
-  alternates: { canonical: '/' },
+  // No layout-level canonical: it would be inherited by every page that doesn't
+  // set its own (e.g. 404s). Each page sets its canonical via buildMetadata.
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

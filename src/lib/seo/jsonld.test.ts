@@ -5,8 +5,11 @@ import {
   breadcrumbSchema,
   faqSchema,
   tourSchema,
+  touristTripSchema,
   articleSchema,
+  jsonLdScript,
 } from './jsonld';
+import { destinations } from '@/content/destinations';
 import { tours } from '@/content/tours';
 import { blogPosts } from '@/content/blog-posts';
 import { getReviewsForTour } from '@/content/reviews';
@@ -16,7 +19,23 @@ describe('JSON-LD builders', () => {
     const org = organizationSchema();
     expect(org['@type']).toBe('TravelAgency');
     expect(org['@context']).toBe('https://schema.org');
-    expect(org).toHaveProperty('aggregateRating');
+    // Self-serving business ratings are ignored/flagged by Google.
+    expect(org).not.toHaveProperty('aggregateRating');
+    // sameAs must never contain empty strings.
+    expect((org.sameAs as string[]).every(Boolean)).toBe(true);
+  });
+
+  it('escapes "<" so JSON-LD can never close its <script> tag', () => {
+    const out = jsonLdScript({ name: '</script><script>alert(1)</script>' });
+    expect(out).not.toContain('<');
+    expect(JSON.parse(out).name).toBe('</script><script>alert(1)</script>');
+  });
+
+  it('tourist trip itinerary lists real places, not logistics steps', () => {
+    const tour = tours.find((t) => t.destinationSlugs.length > 0)!;
+    const dests = tour.destinationSlugs.map((s) => destinations.find((d) => d.slug === s)!);
+    const trip = touristTripSchema(tour, dests) as { itinerary: { itemListElement: { item: { name: string } }[] } };
+    expect(trip.itinerary.itemListElement.map((e) => e.item.name)).toEqual(dests.map((d) => d.name));
   });
 
   it('website schema exposes a SearchAction', () => {

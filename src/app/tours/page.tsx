@@ -6,7 +6,7 @@ import { TourCard } from '@/components/tours/TourCard';
 import { CtaBanner } from '@/components/ui/CtaBanner';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { tours } from '@/content/tours';
-import { categories } from '@/content/categories';
+import { getActiveCategories } from '@/content/categories';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { breadcrumbSchema, itemListSchema, webPageSchema } from '@/lib/seo/jsonld';
 import { absoluteUrl } from '@/config/site';
@@ -14,7 +14,7 @@ import { absoluteUrl } from '@/config/site';
 export const metadata: Metadata = buildMetadata({
   title: 'All Marsa Alam Tours & Excursions',
   description:
-    'Browse all Marsa Alam tours and excursions: desert safaris, dolphin and turtle snorkeling, diving, boat trips and day trips to Luxor and Aswan. Free hotel pickup on every tour.',
+    'Browse all Marsa Alam tours: desert safaris, dolphin and turtle snorkeling, diving, boat trips and day trips to Luxor and Aswan. Free hotel pickup included.',
   path: '/tours',
 });
 
@@ -51,7 +51,7 @@ export default function ToursPage() {
           {/* Category filter chips */}
           <div className="mt-6 flex flex-wrap gap-2">
             <span className="rounded-full bg-ocean px-4 py-2 text-sm font-semibold text-white">All tours</span>
-            {categories.map((c) => (
+            {getActiveCategories().map((c) => (
               <Link
                 key={c.slug}
                 href={`/category/${c.slug}`}

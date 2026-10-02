@@ -1,5 +1,6 @@
 import type { Image } from './types';
 import { img } from './images';
+import { CURRENT_YEAR } from './constants';
 
 /**
  * SEO landing pages that target high-intent search clusters and aggregate
@@ -23,9 +24,9 @@ export const landingPages: LandingPage[] = [
   {
     slug: 'best-marsa-alam-safari',
     title: 'The Best Marsa Alam Safari Tours',
-    seoTitle: 'Best Marsa Alam Safari Tours 2026 | Desert, Quad & Bedouin',
+    seoTitle: `Best Marsa Alam Safari Tours ${CURRENT_YEAR} | Desert, Quad & Bedouin`,
     metaDescription:
-      'Compare the best Marsa Alam safari tours: desert quad biking, camel rides, 4x4 super safaris and Bedouin dinners. Licensed guides, free hotel pickup, best-price guarantee.',
+      'Compare the best Marsa Alam safari tours: quad biking, camel rides, 4x4 super safaris and Bedouin dinners. Licensed guides, free pickup, best-price guarantee.',
     heroImage: img('1509316785289-025f5b846b35', 'Quad bikes and camels at sunset on the best Marsa Alam desert safari', { priority: true }),
     intro: [
       'A Marsa Alam safari is the fastest way to fall for the Eastern Desert — an ocean of dunes, ridgelines and Bedouin hospitality just minutes from the coast. But not all safaris are equal. The best ones travel with licensed local guides, keep groups small, put safety first, and time the whole thing for that unbeatable desert sunset.',
@@ -57,9 +58,9 @@ export const landingPages: LandingPage[] = [
   {
     slug: 'marsa-alam-excursions',
     title: 'Marsa Alam Excursions & Day Trips',
-    seoTitle: 'Marsa Alam Excursions & Day Trips 2026 | Book Online',
+    seoTitle: `Marsa Alam Excursions & Day Trips ${CURRENT_YEAR} | Book Online`,
     metaDescription:
-      'Browse the best Marsa Alam excursions: desert safaris, dolphin and turtle snorkeling, diving, boat trips and day trips to Luxor and Aswan. Free pickup, instant booking.',
+      'Browse the best Marsa Alam excursions: desert safaris, dolphin and turtle snorkeling, diving, boat trips and day trips to Luxor and Aswan. Free hotel pickup.',
     heroImage: img('1544551763-46a013bb70d5', 'Snorkelers and boats on a Marsa Alam excursion over turquoise water', { priority: true }),
     intro: [
       'From desert dunes to dolphin reefs and the temples of ancient Egypt, Marsa Alam’s excursions pack an astonishing range into one destination. Whether you have a single free day or a full week to fill, this is your starting point.',
@@ -96,9 +97,9 @@ export const landingPages: LandingPage[] = [
   {
     slug: 'dolphin-house-tour',
     title: 'Dolphin House Tour Marsa Alam (Sataya Reef)',
-    seoTitle: 'Dolphin House Tour Marsa Alam | Swim with Wild Dolphins at Sataya',
+    seoTitle: 'Dolphin House Tour Marsa Alam | Sataya Reef Dolphin Swim',
     metaDescription:
-      'Book a Dolphin House tour from Marsa Alam to Sataya Reef and snorkel with wild spinner dolphins. Full-day boat trip, pristine coral, lunch and hotel pickup included.',
+      'Book a Dolphin House tour from Marsa Alam to Sataya Reef and snorkel with wild spinner dolphins. Full-day boat trip, coral reefs, lunch and hotel pickup.',
     heroImage: img('1607153333879-c174d265f1d2', 'Wild dolphins at the Dolphin House Sataya Reef tour from Marsa Alam', { priority: true }),
     intro: [
       '“Dolphin House” is the traveller’s name for Sataya Reef, a huge horseshoe of coral in the southern Red Sea where hundreds of wild spinner dolphins rest and play by day. A Dolphin House tour is, for many visitors, the single most memorable day of their Egypt holiday.',

@@ -1,5 +1,6 @@
 import type { TourCategory } from './types';
 import { img } from './images';
+import { tours } from './tours';
 
 export const categories: TourCategory[] = [
   {
@@ -68,4 +69,14 @@ export const categoryBySlug = new Map(categories.map((c) => [c.slug, c]));
 
 export function getCategory(slug: string): TourCategory | undefined {
   return categoryBySlug.get(slug as TourCategory['slug']);
+}
+
+/**
+ * Categories that currently have at least one tour. Only these get a page,
+ * appear in listings and sitemaps — an empty category page is thin content
+ * that Google treats as a soft 404. A category comes back automatically as
+ * soon as a tour is added to it.
+ */
+export function getActiveCategories(): TourCategory[] {
+  return categories.filter((c) => tours.some((t) => t.category === c.slug));
 }

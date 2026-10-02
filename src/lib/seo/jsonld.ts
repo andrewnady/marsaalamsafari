@@ -1,6 +1,7 @@
 import { siteConfig, absoluteUrl } from '@/config/site';
 import type { Tour, BlogPost, Review, FAQ, Destination } from '@/content/types';
 import { getAuthor } from '@/content/authors';
+import { getCategory } from '@/content/categories';
 
 /**
  * JSON-LD builders. Every function returns a plain object matching schema.org,
@@ -29,16 +30,13 @@ export function organizationSchema(): Json {
     },
     image: absoluteUrl('/opengraph-image'),
     description: siteConfig.description,
-    foundingDate: String(siteConfig.foundingYear),
     priceRange: siteConfig.priceRange,
     telephone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: siteConfig.address.street,
       addressLocality: siteConfig.address.locality,
       addressRegion: siteConfig.address.region,
-      postalCode: siteConfig.address.postalCode,
       addressCountry: siteConfig.address.country,
     },
     geo: {
@@ -50,48 +48,6 @@ export function organizationSchema(): Json {
       '@type': 'Place',
       name: 'Marsa Alam, Red Sea, Egypt',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: siteConfig.trust.ratingValue,
-      reviewCount: siteConfig.trust.reviewCount,
-      bestRating: 5,
-      worstRating: 1,
-    },
-    sameAs: [
-      siteConfig.social.facebook,
-      siteConfig.social.instagram,
-      siteConfig.social.tripadvisor,
-      siteConfig.social.youtube,
-      siteConfig.siblingSite,
-    ],
-  };
-}
-
-/** LocalBusiness variant for the /contact + about pages (with opening hours). */
-export function localBusinessSchema(): Json {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'TravelAgency',
-    '@id': ORG_ID,
-    name: siteConfig.legalName,
-    url: siteConfig.url,
-    image: absoluteUrl('/opengraph-image'),
-    telephone: siteConfig.contact.phone,
-    email: siteConfig.contact.email,
-    priceRange: siteConfig.priceRange,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: siteConfig.address.street,
-      addressLocality: siteConfig.address.locality,
-      addressRegion: siteConfig.address.region,
-      postalCode: siteConfig.address.postalCode,
-      addressCountry: siteConfig.address.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: siteConfig.geo.latitude,
-      longitude: siteConfig.geo.longitude,
-    },
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -100,12 +56,10 @@ export function localBusinessSchema(): Json {
         closes: '23:59',
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: siteConfig.trust.ratingValue,
-      reviewCount: siteConfig.trust.reviewCount,
-      bestRating: 5,
-    },
+    // No aggregateRating here: Google treats a business rating its own reviews
+    // on its own site as "self-serving" and ignores or flags it. Star ratings
+    // live on the tour Product nodes instead.
+    sameAs: [...Object.values(siteConfig.social), siteConfig.siblingSite].filter(Boolean),
   };
 }
 
@@ -213,7 +167,7 @@ export function tourSchema(tour: Tour, reviews: Review[]): Json {
     image: [tour.heroImage, ...tour.gallery].map((i) => i.src),
     sku: tour.slug,
     brand: { '@type': 'Brand', name: siteConfig.name },
-    category: tour.category,
+    category: getCategory(tour.category)?.name ?? tour.category,
     offers: {
       '@type': 'Offer',
       url,
@@ -247,32 +201,32 @@ export function touristTripSchema(tour: Tour, destinations: Destination[]): Json
     url,
     touristType: 'International leisure travellers',
     provider: { '@id': ORG_ID },
+    image: tour.heroImage.src,
     offers: {
       '@type': 'Offer',
+      url,
       price: tour.price.amount,
       priceCurrency: tour.price.currency,
       availability: 'https://schema.org/InStock',
     },
-    itinerary: {
-      '@type': 'ItemList',
-      itemListElement: tour.itinerary.map((step, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        item: {
-          '@type': 'TouristAttraction',
-          name: step.title,
-          description: step.description,
-        },
-      })),
-    },
+    // schema.org: a TouristTrip's itinerary is the list of places visited.
     ...(destinations.length > 0 && {
-      subjectOf: destinations.map((d) => ({
-        '@type': 'Place',
-        name: d.name,
-        ...(d.geo && {
-          geo: { '@type': 'GeoCoordinates', latitude: d.geo.latitude, longitude: d.geo.longitude },
-        }),
-      })),
+      itinerary: {
+        '@type': 'ItemList',
+        itemListElement: destinations.map((d, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: {
+            '@type': 'TouristAttraction',
+            name: d.name,
+            description: d.shortDescription,
+            url: absoluteUrl(`/destinations/${d.slug}`),
+            ...(d.geo && {
+              geo: { '@type': 'GeoCoordinates', latitude: d.geo.latitude, longitude: d.geo.longitude },
+            }),
+          },
+        })),
+      },
     }),
   };
 }
@@ -347,5 +301,6 @@ export function itemListSchema(
 
 /** Render one or more schema objects as a JSON-LD script tag payload. */
 export function jsonLdScript(schema: Json | Json[]): string {
-  return JSON.stringify(schema);
+  // Escape "<" so content containing "</script>" can never terminate the tag.
+  return JSON.stringify(schema).replace(/</g, '\\u003c');
 }

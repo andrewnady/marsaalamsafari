@@ -1,6 +1,6 @@
 import { absoluteUrl } from '@/config/site';
 import { blogPosts } from '@/content/blog-posts';
-import { blogCategories } from '@/content/blog-categories';
+import { getActiveBlogCategories } from '@/content/blog-categories';
 import { urlsetXml, xmlResponse, type UrlEntry } from '@/lib/seo/sitemap-xml';
 
 export const dynamic = 'force-static';
@@ -16,7 +16,7 @@ export function GET() {
       priority: 0.7,
       images: [{ loc: p.heroImage.src, title: p.heroImage.title, caption: p.heroImage.alt }],
     })),
-    ...blogCategories.map((c) => ({
+    ...getActiveBlogCategories().map((c) => ({
       loc: absoluteUrl(`/blog/category/${c.slug}`),
       changefreq: 'weekly',
       priority: 0.5,

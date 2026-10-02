@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: post.metaDescription,
     path: `/blog/${post.slug}`,
     type: 'article',
-    images: [{ url: post.heroImage.src, alt: post.heroImage.alt }],
+    images: [{ url: post.heroImage.src, alt: post.heroImage.alt, width: post.heroImage.width, height: post.heroImage.height }],
     publishedTime: post.publishedAt,
     modifiedTime: post.updatedAt,
     authors: author ? [author.name] : undefined,

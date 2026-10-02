@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       title: tour.seoTitle,
       description: tour.metaDescription,
       path: `/${tour.slug}`,
-      images: [{ url: tour.heroImage.src, alt: tour.heroImage.alt }],
+      images: [{ url: tour.heroImage.src, alt: tour.heroImage.alt, width: tour.heroImage.width, height: tour.heroImage.height }],
       keywords: [tour.title, ...tour.tags, 'Marsa Alam'],
     });
   }
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       title: landing.seoTitle,
       description: landing.metaDescription,
       path: `/${landing.slug}`,
-      images: [{ url: landing.heroImage.src, alt: landing.heroImage.alt }],
+      images: [{ url: landing.heroImage.src, alt: landing.heroImage.alt, width: landing.heroImage.width, height: landing.heroImage.height }],
     });
   }
   return {};
