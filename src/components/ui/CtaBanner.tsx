@@ -19,7 +19,13 @@ export function CtaBanner({
         <h2 className="text-3xl font-bold sm:text-4xl">{title}</h2>
         <p className="mt-3 text-lg text-white/80">{text}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={whatsappLink(whatsappMessage)} target="_blank" rel="noopener noreferrer" className="btn-whatsapp text-base">
+          <a
+            href={whatsappLink(whatsappMessage)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-whatsapp text-base"
+            data-wa-button="cta-banner"
+          >
             <Icon.Whatsapp width={18} height={18} /> Chat on WhatsApp
           </a>
           <Link href="/contact" className="btn-outline border-white/25 bg-white/10 text-base text-white hover:bg-white/20">

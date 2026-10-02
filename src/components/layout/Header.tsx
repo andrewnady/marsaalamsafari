@@ -79,6 +79,7 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-whatsapp hidden sm:inline-flex"
+            data-wa-button="header"
           >
             <Icon.Whatsapp width={18} height={18} />
             <span className="hidden md:inline">Book on WhatsApp</span>
@@ -146,6 +147,7 @@ export function Header() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-whatsapp mt-3 w-full"
+              data-wa-button="header-mobile-menu"
             >
               <Icon.Whatsapp width={18} height={18} /> Book on WhatsApp
             </a>

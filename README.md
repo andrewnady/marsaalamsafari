@@ -180,6 +180,10 @@ Contact/booking inquiries and newsletter subscribers are persisted to **Neon ser
 - For a larger schema, migrate to `drizzle-kit` / `node-pg-migrate`; the query shapes in `lib/db.ts` map directly.
 - **Security:** `DATABASE_URL` is a secret — keep it in env vars only (Vercel + `.env.local`), never in the repo. Rotate the password in Neon if it is ever exposed.
 
+## WhatsApp click counting
+
+Every click on a WhatsApp link (`wa.me` / `api.whatsapp.com`) is counted by one page-wide listener (`lib/whatsapp-click-tracking.ts`, mounted by `components/analytics/WhatsAppClickTracker.tsx`), sent to `POST /api/whatsapp-clicks` and stored in the `whatsapp_clicks` table (created on first use; admin pages are skipped). Name a button in the stats with `data-wa-button="..."`. `GET /api/whatsapp-clicks/stats` is read by the "All websites" dashboard on hurghadasafari.travel/admin/super/amgad — keep its JSON the same as on the other two sites.
+
 ---
 
 ## Adding content

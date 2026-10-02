@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
 import { Analytics } from '@/components/analytics/Analytics';
+import { WhatsAppClickTracker } from '@/components/analytics/WhatsAppClickTracker';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { organizationSchema, websiteSchema } from '@/lib/seo/jsonld';
 
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <FloatingWhatsApp />
         <Analytics />
+        <WhatsAppClickTracker />
       </body>
     </html>
   );

@@ -136,6 +136,7 @@ export function BookingWidget({ tour }: { tour: Tour }) {
           target="_blank"
           rel="noopener noreferrer"
           className="btn-whatsapp w-full text-base"
+          data-wa-button="booking-widget"
         >
           <Icon.Whatsapp width={18} height={18} /> Book on WhatsApp
         </a>

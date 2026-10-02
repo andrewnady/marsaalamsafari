@@ -13,7 +13,7 @@ const buckets = new Map<string, Bucket>();
 const MAX = Number(process.env.RATE_LIMIT_MAX ?? 5);
 const WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MS ?? 60_000);
 
-export function rateLimit(key: string): { ok: boolean; retryAfter: number } {
+export function rateLimit(key: string, max = MAX): { ok: boolean; retryAfter: number } {
   const now = Date.now();
   const bucket = buckets.get(key);
 
@@ -22,7 +22,7 @@ export function rateLimit(key: string): { ok: boolean; retryAfter: number } {
     return { ok: true, retryAfter: 0 };
   }
 
-  if (bucket.count >= MAX) {
+  if (bucket.count >= max) {
     return { ok: false, retryAfter: Math.ceil((bucket.resetAt - now) / 1000) };
   }
 
