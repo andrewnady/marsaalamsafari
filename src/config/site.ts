@@ -18,11 +18,13 @@ export const siteConfig = {
   priceRange: '€€',
 
   contact: {
-    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '201000000000',
+    // Official number, hardcoded (calls + WhatsApp) so no hosting env var can
+    // override it. WhatsApp format: country code, no "+" or leading zero.
+    whatsapp: '201559165152',
     // Hardcoded so the official address always shows, regardless of any
     // NEXT_PUBLIC_CONTACT_EMAIL value set in the hosting env.
     email: 'marsaalamexplorer@gmail.com',
-    phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '+201000000000',
+    phone: '+201559165152',
   },
 
   address: {
